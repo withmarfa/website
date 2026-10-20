@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import Question from '../components/Question.astro';
+---
+
+<Base
+  title="Marfa"
+  description="Marfa is a shared, typed data layer for your apps. You define the kinds of things you keep and how they relate, and every app, agent or script you allow works from the same data."
+  footerLink={{ href: '/about', label: 'About' }}
+>
+  <h1>Introducing Marfa</h1>
+  <p>
+    Marfa is a shared, typed data layer for your apps. You define the kinds of things you keep and how they relate,
+    and every app, agent or script you allow works from the same data.
+  </p>
+  <p>
+    Most apps keep their own copy of your data, in their own shape. With Marfa, apps become views onto data you
+    already own: one app writes something, another shows it differently, a third combines it with something else. You
+    can swap an app, or build one for yourself, without moving anything.
+  </p>
+  <p>
+    Marfa runs on your own Mac or on Railway, and Marfa Cloud will be an optional way to reach it from anywhere. The
+    apps WithMarfa makes are native, starting on Mac, iPhone and iPad. Marfa is free and open source.
+  </p>
+
+  <div class="questions">
+    <Question question="How do apps work with Marfa?">
+      <p>
+        An app asks for the types it needs, you approve, and it sees those and nothing else. Several apps can work on
+        the same data, each in its own way, and none of them owns it.
+      </p>
+    </Question>
+    <Question question="Where does my data live?">
+      <p>
+        On your own Marfa, which runs on your own Mac or on Railway. Marfa Cloud will be an optional way to reach it
+        from anywhere, and it holds none of your data.
+      </p>
+    </Question>
+    <Question question="Can I build on it?">
+      <p>
+        Yes, on the same open API that WithMarfa’s apps use. There are Swift and TypeScript SDKs, a command-line tool
+        for scripts and agents, and connectors that bring in data from GitHub, Todoist, Readwise and RSS.
+      </p>
+    </Question>
+  </div>
+</Base>
+
+<style>
+  .questions {
+    margin-top: 32px;
+  }
+</style>
