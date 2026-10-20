@@ -7,10 +7,13 @@ interface Props {
   description: string;
   /** The link the footer offers first: the page you are not on. */
   footerLink: { href: string; label: string };
+  /** Off for the 404 page, which has no address of its own. */
+  indexable?: boolean;
 }
 
-const { title, description, footerLink } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const { title, description, footerLink, indexable = true } = Astro.props;
+// Pages build to `about.html`, which Cloudflare serves at `/about`.
+const canonical = new URL(Astro.url.pathname.replace(/(\/index)?\.html$/, '') || '/', Astro.site);
 ---
 
 <!doctype html>
@@ -23,14 +26,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {indexable && <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="WithMarfa" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {indexable && <meta property="og:url" content={canonical} />}
   </head>
   <body>
     <main class="col">
