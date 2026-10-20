@@ -1,6 +1,6 @@
 # WithMarfa website
 
-The source of the public site at `withmarfa.com`: Astro, built to static files and served as a Cloudflare Worker with static assets only. Cloudflare Workers Builds builds every branch and deploys `main`.
+The source of the public site at `withmarfa.com`: Astro, built to static files and served as a Cloudflare Worker with static assets only. GitHub Actions builds every pull request and deploys `main`.
 
 ## Conventions
 
@@ -33,10 +33,11 @@ pnpm preview    # build, then serve dist/ with Wrangler as Cloudflare will
 
 ## Deploying
 
-- **Merging to `main` deploys.** Workers Builds runs `pnpm run check && pnpm run build`, then `npx wrangler deploy`. A pull request gets a preview URL and a check on GitHub, and the check is required.
-- The Worker is `withmarfa-website`; its name in `wrangler.jsonc` must match the one Workers Builds is connected to.
+- **Merging to `main` deploys.** The `CI` workflow's `Build and check` job runs `pnpm run check` and `pnpm run build` on every pull request and push; it is the required check. On `main`, the `Deploy to withmarfa.com` job deploys exactly the files that job built with `wrangler deploy`, then fails unless withmarfa.com serves them.
+- The workflow uses the `CLOUDFLARE_API_TOKEN` secret, a token that can only deploy Workers in the WithMarfa account and manage Worker routes on withmarfa.com, and the `CLOUDFLARE_ACCOUNT_ID` and `POSTHOG_PROJECT_KEY_SITES` variables. Never commit any of them.
 - `withmarfa.com` is the Worker's custom domain (`wrangler.jsonc`). Redirects from `www.withmarfa.com`, `marfa.so` and `www.marfa.so` are zone redirect rules in Cloudflare, not in this repository, because `_redirects` cannot change the host.
-- `PUBLIC_POSTHOG_KEY` is a build variable in Workers Builds. A build without it sends nothing, which is what a fork or a local build gets.
+- A build without `PUBLIC_POSTHOG_KEY` sends nothing, which is what a fork or a local build gets.
+- The fallback when the workflow cannot deploy is `pnpm run build && pnpm exec wrangler deploy` from a shell authenticated to the WithMarfa account.
 
 ## Analytics
 
@@ -49,6 +50,7 @@ pnpm preview    # build, then serve dist/ with Wrangler as Cloudflare will
 Report only a problem you can show: name the page, input or step, and what goes wrong.
 
 - **Untrue about Marfa.** Flag a claim about what Marfa does, where it runs or what it costs that withmarfa/marfa or docs.marfa.so contradicts. Never say Marfa Cloud is free.
+- **Deploy weakened.** Flag a `paths` filter on `ci.yml`, a renamed `Build and check` job, or a deploy that no longer checks the live site.
 - **Analytics grown.** Flag an option in `src/lib/analytics.ts` that turns on autocapture, replay, surveys, flags, cookies or storage, or a static import of `posthog-js`.
 - **Policy broken.** Flag an inline script or style, or a new third-party origin, that `public/_headers` does not allow.
 - **Private detail committed.** Flag a token, key, account ID, internal hostname or personal path in a tracked file.
