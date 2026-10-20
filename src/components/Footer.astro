@@ -1,0 +1,45 @@
+---
+interface Props {
+  link: { href: string; label: string };
+}
+
+const { link } = Astro.props;
+---
+
+<footer class="col">
+  <span>© 2026 WithMarfa</span>
+  <nav aria-label="Links">
+    <a href={link.href}>{link.label}</a>
+    <span class="bar" aria-hidden="true">|</span>
+    <a href="https://docs.marfa.so">Docs</a>
+    <span class="bar" aria-hidden="true">|</span>
+    <a href="https://github.com/withmarfa">GitHub</a>
+  </nav>
+</footer>
+
+<style>
+  footer {
+    margin-top: auto;
+    padding: 28px 0 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--text);
+  }
+
+  .bar {
+    margin: 0 10px;
+    color: var(--line);
+  }
+</style>

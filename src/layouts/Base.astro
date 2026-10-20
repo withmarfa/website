@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** The link the footer offers first: the page you are not on. */
+  footerLink: { href: string; label: string };
+  /** Off for the 404 page, which has no address of its own. */
+  indexable?: boolean;
+}
+
+const { title, description, footerLink, indexable = true } = Astro.props;
+// Pages build to `about.html`, which Cloudflare serves at `/about`.
+const canonical = new URL(Astro.url.pathname.replace(/(\/index)?\.html$/, '') || '/', Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#fdfdfc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {indexable && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="WithMarfa" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {indexable && <meta property="og:url" content={canonical} />}
+  </head>
+  <body>
+    <main class="col">
+      <slot />
+    </main>
+    <Footer link={footerLink} />
+    <script>
+      import { loadAnalytics } from '../lib/analytics';
+      loadAnalytics();
+    </script>
+  </body>
+</html>
