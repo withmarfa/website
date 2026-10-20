@@ -1,14 +1,15 @@
 import type { PostHogConfig } from 'posthog-js';
 
 /**
- * Page views and unhandled errors to the "Marfa (Sites)" PostHog project,
- * which the docs and status sites also report to, and nothing else.
+ * Page views, page leaves and unhandled errors to the "Marfa (Sites)" PostHog
+ * project, which the docs and status sites also report to, and nothing else.
  *
  * The options match the docs site's (withmarfa/docs, `src/lib/analytics.ts`),
- * where each is explained. In short: no cookies and no storage of any kind, so
- * the site needs no consent banner; no person profiles; no autocapture,
- * replay, surveys or flags. Cookieless mode also has to be on in the PostHog
- * project, or events arrive and are dropped.
+ * where each is explained, except `capture_pageview`: every page here is a full
+ * load, so there are no history changes to count. In short: no cookies and no
+ * storage of any kind, so the site needs no consent banner; no person profiles;
+ * no autocapture, replay, surveys or flags. Cookieless mode also has to be on
+ * in the PostHog project, or events arrive and are dropped.
  */
 const OPTIONS: Partial<PostHogConfig> = {
   api_host: 'https://eu.i.posthog.com',
