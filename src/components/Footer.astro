@@ -1,9 +1,10 @@
 ---
+import { pagePath } from '../lib/path';
 /**
  * The footer, and the Contact card it opens. The card shows the address before
  * anything opens a mail app, and offers to copy it instead.
  */
-const path = Astro.url.pathname.replace(/(\/index)?\.html$/, '') || '/';
+const path = pagePath(Astro.url);
 const EMAIL = 'hello@withmarfa.com';
 ---
 

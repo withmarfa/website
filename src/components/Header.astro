@@ -1,9 +1,10 @@
 ---
+import { pagePath } from '../lib/path';
 /**
  * The Marfa mark, which leads home, and the two ways out: GitHub and the docs.
  * The mark is the docs' favicon.svg, drawn in the page's colors.
  */
-const path = Astro.url.pathname.replace(/(\/index)?\.html$/, '') || '/';
+const path = pagePath(Astro.url);
 ---
 
 <header class="col">

@@ -45,8 +45,8 @@ pnpm preview    # build, then serve dist/ and the Worker with Wrangler as Cloudf
 ## Sign-ups
 
 - The form on About posts to `/api/subscribe`. The Worker checks that the request comes from this site, limits each IP address to five tries a minute, ignores bots that fill the hidden `website` field, and keeps the address, lowercased, with the time in the `signups` table of the D1 database `withmarfa-website` (EU jurisdiction). A repeat address changes nothing and gets the same reply, so the form never reveals who is on the list.
-- With JavaScript the form shows the result in place; without it the Worker redirects to `/subscribed`, or back to the form.
-- Nothing logs an address. To read the list, from a shell authenticated to the WithMarfa account: `pnpm exec wrangler d1 execute withmarfa-website --remote --command "SELECT email, created_at FROM signups ORDER BY created_at"`. To remove someone, `DELETE FROM signups WHERE email = '…'`.
+- With JavaScript the form shows the result in place; without it the Worker redirects to `/subscribed` or `/subscribe-failed`.
+- Nothing logs an address. Invocation logs and traces are off, because they would keep each visitor's location and browser beside the time of their sign-up; only the Worker's own log lines are kept. To read the list, from a shell authenticated to the WithMarfa account: `pnpm exec wrangler d1 execute withmarfa-website --remote --command "SELECT email, created_at FROM signups ORDER BY created_at"`. To remove someone, `DELETE FROM signups WHERE email = '…'`.
 - A schema change is a new file in `migrations/`, applied with `pnpm exec wrangler d1 migrations apply withmarfa-website --remote` before the code that needs it is merged. The deploy does not apply migrations.
 - `src/pages/privacy.astro` says what is kept and why. Change it in the same pull request as anything that changes what the site collects.
 

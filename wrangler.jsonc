@@ -27,9 +27,13 @@
       "simple": { "limit": 5, "period": 60 }
     }
   ],
+  // The Worker's own log lines only, which never hold an address. Invocation
+  // logs and traces would keep each visitor's location and browser beside
+  // the time of their sign-up, which the privacy page does not allow for.
   "observability": {
     "enabled": true,
-    "traces": { "enabled": true }
+    "logs": { "invocation_logs": false },
+    "traces": { "enabled": false }
   },
   "routes": [
     {

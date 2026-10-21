@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 
-/** Pages that are not for search: the 404 page and the sign-up thank-you. */
-const UNLISTED = new Set(['404', 'subscribed']);
+/** Pages that are not for search: the 404 page and the sign-up results. */
+const UNLISTED = new Set(['404', 'subscribed', 'subscribe-failed']);
 
 const pages = Object.keys(import.meta.glob('./*.astro'))
   .map((file) => file.slice(2, -'.astro'.length))

@@ -3,8 +3,9 @@
  * address for updates. Pages never reach it; `run_worker_first` in
  * wrangler.jsonc sends only /api/* here.
  *
- * Without JavaScript the form posts here and is redirected to a page; the
- * site's own script asks for JSON instead and shows the result in place.
+ * Without JavaScript the form posts here and is redirected to /subscribed or
+ * /subscribe-failed; the site's own script asks for JSON instead and shows the
+ * result in place.
  */
 
 type Result = 'ok' | 'invalid' | 'limited' | 'error';
@@ -81,7 +82,7 @@ function respond(result: Result, wantsJson: boolean, url: URL): Response {
   if (wantsJson) {
     return Response.json({ result }, { status: STATUS[result], headers: baseHeaders() });
   }
-  const to = result === 'ok' ? '/subscribed' : '/about#follow';
+  const to = result === 'ok' ? '/subscribed' : '/subscribe-failed';
   return new Response(null, { status: 303, headers: { ...baseHeaders(), Location: new URL(to, url).href } });
 }
 
