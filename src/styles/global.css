@@ -98,6 +98,10 @@ main {
   padding: var(--top) 0 var(--end);
 }
 
+main.compact {
+  padding-top: calc(var(--top) * 0.5);
+}
+
 h1 {
   margin: 0 0 calc(var(--gap) + 6px);
   font-size: var(--title-size);

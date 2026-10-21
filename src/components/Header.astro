@@ -54,14 +54,14 @@ const path = pagePath(Astro.url);
     margin: 0 calc(var(--gutter) * -1);
     padding: var(--header-space) var(--gutter);
     background: color-mix(in srgb, var(--bg) 80%, transparent);
-    -webkit-backdrop-filter: blur(16px) saturate(1.4);
-    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     box-shadow: 0 1px 0 transparent;
     transition: box-shadow 0.2s ease;
   }
 
   header[data-scrolled] {
-    box-shadow: 0 1px 0 var(--rule);
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--rule) 60%, transparent);
   }
 
   .bar {
