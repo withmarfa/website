@@ -14,7 +14,6 @@ const next = [
 <Base
   title="About Marfa"
   description="How Marfa started, why it’s a personal project, and what’s next."
-  footerLink={{ href: '/', label: 'Home' }}
 >
   <h1>About</h1>
   <p>Marfa started as my own way of managing my data: one place that the apps and tools I use could all work from.</p>
@@ -39,6 +38,9 @@ const next = [
       ))
     }
   </ul>
+
+  <h2>Get in touch</h2>
+  <p>For questions, ideas or something you’ve built on Marfa, email <a href="mailto:hello@withmarfa.com">hello@withmarfa.com</a>.</p>
 </Base>
 
 <style>
@@ -53,7 +55,7 @@ const next = [
     grid-template-columns: 150px minmax(0, 1fr);
     gap: 16px;
     margin: 0 0 10px;
-    font-size: 17px;
+    font-size: var(--text-size);
     line-height: 1.55;
   }
 
@@ -69,10 +71,11 @@ const next = [
     color: var(--text);
   }
 
+  /* On a phone the period stays beside its step, in a narrower column. */
   @media (max-width: 560px) {
     .next li {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 0;
+      grid-template-columns: 7.4em minmax(0, 1fr);
+      gap: 12px;
     }
   }
 </style>

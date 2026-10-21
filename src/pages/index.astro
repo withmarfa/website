@@ -6,7 +6,6 @@ import Question from '../components/Question.astro';
 <Base
   title="Marfa"
   description="Marfa is a shared, typed data layer for your apps. You define the kinds of things you keep and how they relate, and every app, agent or script you allow works from the same data."
-  footerLink={{ href: '/about', label: 'About' }}
 >
   <h1>Introducing Marfa</h1>
   <p>
@@ -47,6 +46,6 @@ import Question from '../components/Question.astro';
 
 <style>
   .questions {
-    margin-top: 32px;
+    margin-top: calc(var(--gap) * 1.6);
   }
 </style>
