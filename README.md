@@ -13,7 +13,9 @@ pnpm install
 pnpm dev
 ```
 
-The site runs at `http://localhost:4321`. To check types and build the static files:
+The site runs at `http://localhost:4321`. The sign-up form needs the Worker as well; `pnpm preview` builds the site and serves both with Wrangler, after `pnpm exec wrangler d1 migrations apply withmarfa-website --local` has created the local database.
+
+To check types and build the static files:
 
 ```bash
 pnpm check

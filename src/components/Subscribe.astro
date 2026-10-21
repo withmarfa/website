@@ -1,0 +1,171 @@
+---
+/**
+ * Signs someone up for updates. Without JavaScript the form posts and the
+ * Worker redirects to /subscribed or /subscribe-failed; with it, the result shows in place. The
+ * `website` field is left empty by people and filled by bots, which the Worker
+ * then ignores.
+ */
+---
+
+<form class="subscribe" method="post" action="/api/subscribe">
+  <div class="row">
+    <label class="visually-hidden" for="subscribe-email">Email address</label>
+    <input
+      id="subscribe-email"
+      name="email"
+      type="email"
+      autocomplete="email"
+      inputmode="email"
+      autocapitalize="off"
+      spellcheck="false"
+      maxlength="254"
+      placeholder="you@example.com"
+      required
+    />
+    <input class="trap" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <button type="submit">Subscribe</button>
+  </div>
+  <p class="note" data-status role="status" aria-live="polite">
+    Occasional updates, nothing else. Unsubscribe any time. <a href="/privacy">Privacy</a>
+  </p>
+</form>
+
+<script>
+  const MESSAGES: Record<string, string> = {
+    invalid: 'That doesn’t look like an email address.',
+    limited: 'Too many tries. Wait a minute, then try again.',
+    error: 'Something went wrong. Try again in a moment.',
+  };
+
+  for (const form of document.querySelectorAll<HTMLFormElement>('form.subscribe')) {
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const button = form.querySelector('button')!;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      button.disabled = true;
+      form.dataset.state = 'busy';
+
+      let result = 'error';
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        const body = (await response.json().catch(() => ({}))) as { result?: string };
+        result = body.result ?? (response.ok ? 'ok' : 'error');
+      } catch {
+        result = 'error';
+      }
+
+      if (result === 'ok') {
+        form.dataset.state = 'done';
+        status.textContent = 'Thanks. You’ll hear when there’s news.';
+        form.querySelector('.row')!.remove();
+        return;
+      }
+
+      form.dataset.state = 'failed';
+      status.textContent = MESSAGES[result] ?? MESSAGES.error;
+      button.disabled = false;
+    });
+  }
+</script>
+
+<style>
+  .row {
+    display: flex;
+    gap: 8px;
+  }
+
+  input[type='email'] {
+    flex: 1;
+    min-width: 0;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    /* iOS Safari zooms into any field smaller than 16px when it gets focus. */
+    font-size: 16px;
+    transition: border-color 0.15s ease;
+  }
+
+  input[type='email']::placeholder {
+    color: var(--muted);
+  }
+
+  input[type='email']:focus {
+    border-color: var(--text);
+    outline: none;
+  }
+
+  button {
+    height: 38px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--text);
+    color: var(--bg);
+    font: inherit;
+    font-size: var(--small-size);
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease;
+  }
+
+  button:hover {
+    opacity: 0.85;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .note {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .note a {
+    color: var(--muted);
+  }
+
+  form[data-state='failed'] .note {
+    color: var(--text);
+  }
+
+  form[data-state='done'] .note {
+    margin-top: 0;
+    color: var(--text);
+    font-size: var(--small-size);
+  }
+
+  .trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>

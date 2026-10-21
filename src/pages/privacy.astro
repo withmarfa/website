@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Privacy" description="What withmarfa.com collects, and why.">
+  <h1>Privacy</h1>
+  <p>
+    This site collects as little as it can. It sets no cookies and stores nothing on your device, so there’s nothing
+    to accept.
+  </p>
+
+  <h2>Page views</h2>
+  <p>
+    Visits are counted with PostHog, in the EU. Each page view records the page, the site that sent you, your browser,
+    device type, language and time zone. If something on a page fails, the error is recorded too. Your IP address isn’t
+    stored, and nothing follows you from one day to the next.
+  </p>
+
+  <h2>Updates</h2>
+  <p>
+    If you sign up for updates, your email address and the time you signed up are kept in a database in the EU, run
+    by Cloudflare. They’re used only to email you news about Marfa, and they’re never sold or shared.
+  </p>
+
+  <h2>Your data</h2>
+  <p>
+    To be removed from updates, or to ask what’s held about you, email
+    <a href="mailto:hello@withmarfa.com">hello@withmarfa.com</a>. WithMarfa is responsible for this data.
+  </p>
+
+  <p class="updated">Last updated 21 October 2026.</p>
+</Base>
+
+<style>
+  .updated {
+    margin-top: var(--section);
+    color: var(--muted);
+    font-size: var(--small-size);
+  }
+</style>

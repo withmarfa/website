@@ -1,11 +1,39 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "withmarfa-website",
-  "compatibility_date": "2026-10-20",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-21",
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page",
-    "html_handling": "drop-trailing-slash"
+    "html_handling": "drop-trailing-slash",
+    // Only the API reaches the Worker; every page is served as a file.
+    "run_worker_first": ["/api/*"]
+  },
+  // Sign-ups for updates, in the EU. The schema is in migrations/.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "withmarfa-website",
+      "database_id": "0c52304d-2f6e-4f8e-b843-2160247b4997",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // Five sign-up attempts a minute from one address.
+  "ratelimits": [
+    {
+      "name": "SIGNUP_LIMIT",
+      "namespace_id": "1001",
+      "simple": { "limit": 5, "period": 60 }
+    }
+  ],
+  // The Worker's own log lines only, which never hold an address. Invocation
+  // logs and traces would keep each visitor's location and browser beside
+  // the time of their sign-up, which the privacy page does not allow for.
+  "observability": {
+    "enabled": true,
+    "logs": { "invocation_logs": false },
+    "traces": { "enabled": false }
   },
   "routes": [
     {

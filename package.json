@@ -9,8 +9,9 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "check": "astro check",
+    "check": "astro check && wrangler types worker/worker-configuration.d.ts --check && tsc -p worker",
     "build": "astro build",
+    "types": "wrangler types worker/worker-configuration.d.ts",
     "preview": "pnpm run build && wrangler dev"
   },
   "dependencies": {

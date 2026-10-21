@@ -1,34 +1,43 @@
 ---
 import Base from '../layouts/Base.astro';
+import Subscribe from '../components/Subscribe.astro';
 
 /** What's next. `now` marks the step in progress, shown in bold. */
 const next = [
-  { when: 'Early October', what: 'Development versions are public, with the code.' },
-  { when: 'Late October', what: 'Marfa 0.1, the first semi-stable release.', now: true },
-  { when: 'Early November', what: 'The Mac and iOS apps on TestFlight for an early group.' },
-  { when: 'Late November', what: 'Public TestFlight for the Mac and iOS apps.' },
-  { when: 'December', what: 'More apps and connectors, and Marfa Cloud in testing.' },
+  { when: 'Early October', what: 'Development builds, open source' },
+  { when: 'Late October', what: 'Marfa 0.1, the first semi-stable release', now: true },
+  { when: 'Early November', what: 'The Mac and iOS apps with early testers' },
+  { when: 'Late November', what: 'Public TestFlight, Marfa Cloud in testing, and the full website' },
 ];
 ---
 
 <Base
   title="About Marfa"
-  description="How Marfa started, why it’s a personal project, and what’s next."
+  description="Why Marfa exists, how it was rebuilt this year, and what’s next: Marfa 0.1, TestFlight for the Mac and iOS apps, and Marfa Cloud."
 >
   <h1>About</h1>
-  <p>Marfa started as my own way of managing my data: one place that the apps and tools I use could all work from.</p>
   <p>
-    Over this year it went through several rounds of building and testing. It began as a hosted service, and this
-    autumn I rebuilt it as something you run yourself, with a Rust core under its command-line tool and native apps.
-    This is the version I’m building on now.
+    Marfa grew out of a frustration. After trying more apps than I can count, every switch meant leaving something
+    behind. It also draws on experience with customer data platforms, where one well-modelled source of data is the
+    whole point.
   </p>
   <p>
-    It’s a personal project, not a business. I maintain it, I’ll keep maintaining it, and I’ll keep building apps on
-    it. It’s open source so that anyone can run it, build on it or take it somewhere new.
+    That matters more now that agents can build an app in an afternoon. Apps can come and go; the data underneath
+    should last, and make sense to whatever reads it next.
+  </p>
+  <p>
+    Marfa has been rebuilt more than once this year. It began as a hosted service that tried to be compatible with
+    everything, which pulled it away from what mattered most: a sound data model and a server you can rely on. So it
+    became something you run yourself, with a Rust core under its command-line tool and native apps. Marfa Cloud will
+    follow as an optional relay for reaching it from anywhere, without holding your data.
+  </p>
+  <p>
+    It’s a personal project, not a business. It ships when it works, not before. Marfa is free and open source, so anyone
+    can run it, build on it or take it somewhere new.
   </p>
 
   <h2>What’s next</h2>
-  <ul class="next">
+  <ol class="next">
     {
       next.map((step) => (
         <li class:list={{ now: step.now }} aria-current={step.now ? 'step' : undefined}>
@@ -37,26 +46,33 @@ const next = [
         </li>
       ))
     }
-  </ul>
+  </ol>
 
-  <h2>Get in touch</h2>
-  <p>For questions, ideas or something you’ve built on Marfa, email <a href="mailto:hello@withmarfa.com">hello@withmarfa.com</a>.</p>
+  <h2 id="follow">Follow along</h2>
+  <p class="lead">
+    Marfa is being shaped with a small group of early testers. Leave your email to hear as the apps open up and new
+    things ship.
+  </p>
+  <Subscribe />
 </Base>
 
 <style>
+  /* Rows are padded rather than spaced, and the list pulls up by the same
+     amount, so the first row sits where the heading's spacing puts it. */
   .next {
-    margin: 0;
+    --row: 6px;
+    margin: calc(var(--row) * -1) 0 0;
     padding: 0;
     list-style: none;
+    font-size: var(--small-size);
+    line-height: 1.5;
   }
 
   .next li {
     display: grid;
-    grid-template-columns: 150px minmax(0, 1fr);
-    gap: 16px;
-    margin: 0 0 10px;
-    font-size: var(--text-size);
-    line-height: 1.55;
+    grid-template-columns: 8.5em minmax(0, 1fr);
+    gap: 12px;
+    padding: var(--row) 0;
   }
 
   .when {
@@ -71,11 +87,23 @@ const next = [
     color: var(--text);
   }
 
-  /* On a phone the period stays beside its step, in a narrower column. */
+  .lead {
+    margin-bottom: 14px;
+    font-size: var(--small-size);
+  }
+
+  #follow {
+    scroll-margin-top: 24px;
+  }
+
   @media (max-width: 560px) {
+    .next {
+      --row: 4px;
+    }
+
     .next li {
       grid-template-columns: 7.4em minmax(0, 1fr);
-      gap: 12px;
+      gap: 10px;
     }
   }
 </style>

@@ -5,19 +5,24 @@
   color-scheme: light dark;
   --bg: #fdfdfc;
   --text: #0a0a0a;
+  --secondary: #404040;
   --muted: #737373;
-  --rule: #e5e5e5;
+  --rule: #e8e8e6;
   --line: #d4d4d4;
   --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
 
   /* Type and spacing, smaller on phones (below). */
   --gutter: 24px;
-  --text-size: 17px;
-  --text-leading: 1.65;
-  --small-size: 16px;
-  --title-size: 28px;
-  --gap: 20px;
-  --top: 56px;
+  --text-size: 16px;
+  --text-leading: 1.6;
+  --small-size: 15px;
+  --title-size: 26px;
+  --gap: 16px;
+  /* Space above a section heading. */
+  --section: 40px;
+  /* Lowers the page's text on tall windows without pushing it off short ones. */
+  --top: clamp(40px, 11vh, 120px);
+  --end: 40px;
   --header-top: 24px;
 
   /* Lets an opening question animate to its natural height where supported. */
@@ -28,6 +33,7 @@
   :root {
     --bg: #121212;
     --text: #ebebeb;
+    --secondary: #c2c2c2;
     --muted: #939393;
     --rule: #262626;
     --line: #3a3a3a;
@@ -38,11 +44,13 @@
   :root {
     --gutter: 20px;
     --text-size: 15px;
-    --text-leading: 1.6;
-    --small-size: 15px;
-    --title-size: 24px;
+    --text-leading: 1.55;
+    --small-size: 14px;
+    --title-size: 22px;
     --gap: 14px;
-    --top: 24px;
+    --section: 24px;
+    --top: clamp(20px, 4vh, 40px);
+    --end: 16px;
     --header-top: 10px;
   }
 }
@@ -71,28 +79,29 @@ body {
   background: color-mix(in srgb, var(--text) 16%, transparent);
 }
 
+/* About 70 characters a line at the body size. */
 .col {
   width: 100%;
-  max-width: 620px;
+  max-width: 580px;
   margin: 0 auto;
 }
 
 main {
-  padding: var(--top) 0 48px;
+  padding: var(--top) 0 var(--end);
 }
 
 h1 {
-  margin: 0 0 calc(var(--gap) + 8px);
+  margin: 0 0 calc(var(--gap) + 6px);
   font-size: var(--title-size);
   line-height: 1.2;
   font-weight: 600;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
 h2 {
-  margin: calc(var(--gap) * 1.8) 0 calc(var(--gap) * 0.7);
-  font-size: var(--text-size);
+  margin: var(--section) 0 calc(var(--gap) * 0.75);
+  font-size: var(--small-size);
   line-height: 1.4;
   font-weight: 600;
 }
@@ -102,6 +111,10 @@ p {
   font-size: var(--text-size);
   line-height: var(--text-leading);
   text-wrap: pretty;
+}
+
+main > :last-child {
+  margin-bottom: 0;
 }
 
 a {
