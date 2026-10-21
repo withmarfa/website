@@ -40,8 +40,11 @@ const next = [
 </Base>
 
 <style>
+  /* Rows are padded rather than spaced, and the list pulls up by the same
+     amount, so the first row sits where the heading's spacing puts it. */
   .next {
-    margin: 0;
+    --row: 6px;
+    margin: calc(var(--row) * -1) 0 0;
     padding: 0;
     list-style: none;
     font-size: var(--small-size);
@@ -52,7 +55,7 @@ const next = [
     display: grid;
     grid-template-columns: 8.5em minmax(0, 1fr);
     gap: 12px;
-    padding: 5px 0;
+    padding: var(--row) 0;
   }
 
   .when {
@@ -68,10 +71,13 @@ const next = [
   }
 
   @media (max-width: 560px) {
+    .next {
+      --row: 3px;
+    }
+
     .next li {
       grid-template-columns: 7.4em minmax(0, 1fr);
       gap: 10px;
-      padding: 3px 0;
     }
   }
 </style>

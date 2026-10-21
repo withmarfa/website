@@ -4,6 +4,10 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://withmarfa.com',
   output: 'static',
+  // Astro 7's default ('jsx') drops a line break before an inline element,
+  // so prose wrapped in the source loses its space ("The<a>About</a>").
+  // `true` compresses without changing what renders.
+  compressHTML: true,
   trailingSlash: 'never',
   build: {
     // `about.html` rather than `about/index.html`, so Cloudflare serves
