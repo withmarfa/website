@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import Subscribe from '../components/Subscribe.astro';
+import Contact from '../components/Contact.astro';
 
 /** What's next. `now` marks the step in progress, shown in bold. */
 const next = [
@@ -48,12 +48,10 @@ const next = [
     }
   </ol>
 
-  <h2 id="follow">Follow along</h2>
-  <p class="lead">
-    Marfa is being shaped with a small group of early testers. Leave your email to hear as the apps open up and new
-    things ship.
+  <p class="contact">
+    Have a question or an idea? <button type="button" class="link" popovertarget="contact">Get in touch</button>.
   </p>
-  <Subscribe />
+  <Contact slot="end" />
 </Base>
 
 <style>
@@ -79,21 +77,24 @@ const next = [
     color: var(--muted);
   }
 
+  .contact {
+    margin-top: var(--section);
+    font-size: var(--small-size);
+    color: var(--secondary);
+  }
+
+  .contact {
+    margin-top: var(--section);
+    font-size: var(--small-size);
+    color: var(--secondary);
+  }
+
   .now {
     font-weight: 600;
   }
 
   .now .when {
     color: var(--text);
-  }
-
-  .lead {
-    margin-bottom: 14px;
-    font-size: var(--small-size);
-  }
-
-  #follow {
-    scroll-margin-top: 24px;
   }
 
   @media (max-width: 560px) {

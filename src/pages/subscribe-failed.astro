@@ -1,11 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+import Subscribe from '../components/Subscribe.astro';
 ---
 
 <Base title="That didn’t work" description="Your sign-up for updates didn’t go through." indexable={false}>
   <h1>That didn’t work</h1>
   <p>
     Your address wasn’t added. Check that it’s a full email address, or wait a minute if you’ve tried several times,
-    then <a href="/about#follow">try again</a>.
+    then try again.
   </p>
+  <Subscribe />
 </Base>

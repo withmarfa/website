@@ -9,6 +9,11 @@
   --muted: #737373;
   --rule: #e8e8e6;
   --line: #d4d4d4;
+  /* A raised surface, such as a secondary button or a card. */
+  --surface: #ffffff;
+  /* The card that opens over the page, and the veil behind it. */
+  --sheet: #fdfdfc;
+  --veil: color-mix(in srgb, #000 20%, transparent);
   --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
 
   /* Type and spacing, smaller on phones (below). */
@@ -21,7 +26,7 @@
   /* Space above a section heading. */
   --section: 40px;
   /* Lowers the page's text on tall windows without pushing it off short ones. */
-  --top: clamp(40px, 11vh, 120px);
+  --top: clamp(36px, 8vh, 80px);
   --end: 40px;
   --header-top: 24px;
 
@@ -37,6 +42,9 @@
     --muted: #939393;
     --rule: #262626;
     --line: #3a3a3a;
+    --surface: #242424;
+    --sheet: #1a1a1a;
+    --veil: color-mix(in srgb, #000 50%, transparent);
   }
 }
 
@@ -130,10 +138,164 @@ a:hover {
   text-decoration-color: currentColor;
 }
 
+/* A button that reads as a link in running text, such as one opening a card. */
+.link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: text-decoration-color 0.15s ease;
+}
+
+.link:hover {
+  text-decoration-color: currentColor;
+}
+
 :focus-visible {
   outline: 2px solid var(--text);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+/* Buttons. One size everywhere: a solid primary and a raised secondary. */
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 30px;
+  padding: 0 11px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.button.primary {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.button.primary:hover {
+  opacity: 0.85;
+}
+
+.button.secondary {
+  border-color: var(--rule);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 2px color-mix(in srgb, #000 4%, transparent);
+}
+
+.button.secondary:hover {
+  border-color: var(--line);
+}
+
+/* A plain button for a dismissing action, such as Close. */
+.button.plain {
+  padding: 0 4px;
+  background: none;
+  color: var(--muted);
+}
+
+.button.plain:hover {
+  color: var(--text);
+}
+
+/* A card over the page, opened by a popovertarget button: the browser handles
+   opening, Escape and a tap outside, with or without JavaScript. */
+.sheet {
+  width: min(360px, calc(100vw - 32px));
+  box-sizing: border-box;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  background: var(--sheet);
+  color: var(--text);
+  box-shadow: 0 16px 48px color-mix(in srgb, #000 16%, transparent);
+  opacity: 0;
+  transform: translateY(6px) scale(0.98);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    overlay 0.2s allow-discrete,
+    display 0.2s allow-discrete;
+}
+
+.sheet:popover-open {
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  .sheet:popover-open {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+}
+
+.sheet::backdrop {
+  background: var(--veil);
+}
+
+.sheet-title {
+  margin: 0 0 6px;
+  font-size: var(--text-size);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.sheet p:not(.sheet-title) {
+  font-size: var(--small-size);
+  line-height: 1.5;
+  color: var(--secondary);
+}
+
+/* Close on the left; the actions on the right, the main one last. */
+.sheet-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.sheet-actions > :first-child {
+  margin-right: auto;
+}
+
+/* On phones the card sits higher, clear of the keyboard. */
+@media (max-width: 560px) {
+  .sheet {
+    margin-top: 18vh;
+  }
 }
 
 /* The page's text settles in, one block after another, on load. */
