@@ -1,11 +1,9 @@
 ---
 import { pagePath } from '../lib/path';
 /**
- * The Marfa mark, which leads home; GitHub and the docs; and Get Updates,
- * which opens the sign-up card. The mark is the docs' favicon.svg, drawn in
- * the page's colors.
+ * The Marfa mark, which leads home, and the two ways out: GitHub and the docs.
+ * The mark is the docs' favicon.svg, drawn in the page's colors.
  */
-import Updates from './Updates.astro';
 const path = pagePath(Astro.url);
 ---
 
@@ -35,12 +33,9 @@ const path = pagePath(Astro.url);
           <path d="M2.5 7.5 7.5 2.5M3.5 2.5h4v4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
       </a>
-      <button type="button" class="pill" popovertarget="updates">Get Updates</button>
     </nav>
   </div>
 </header>
-
-<Updates />
 
 <script>
   const header = document.querySelector('header')!;
@@ -50,21 +45,23 @@ const path = pagePath(Astro.url);
 </script>
 
 <style>
-  /* Stays at the top while a longer page scrolls beneath it, with a hairline
-     once the page has moved. */
+  /* Stays at the top while a longer page scrolls beneath it, frosted so the
+     page shows faintly through, with a hairline once the page has moved. */
   header {
     position: sticky;
     top: 0;
     z-index: 10;
     margin: 0 calc(var(--gutter) * -1);
-    padding: var(--header-top) var(--gutter) 6px;
-    background: var(--bg);
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s ease;
+    padding: var(--header-space) var(--gutter);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+    box-shadow: 0 1px 0 transparent;
+    transition: box-shadow 0.2s ease;
   }
 
   header[data-scrolled] {
-    border-bottom-color: var(--rule);
+    box-shadow: 0 1px 0 var(--rule);
   }
 
   .bar {
@@ -100,7 +97,7 @@ const path = pagePath(Astro.url);
     gap: 8px;
   }
 
-  /* Quieter than the pills: an icon only, in the muted color. */
+  /* Quieter than the pill: an icon only, in the muted color. */
   .github {
     position: relative;
     display: inline-flex;
@@ -119,8 +116,7 @@ const path = pagePath(Astro.url);
     inset: -13px -7px;
   }
 
-  /* Small, quiet pills in the same light grey: the page's text stays the
-     loudest thing on it. */
+  /* A small, quiet pill: the page's text stays the loudest thing on it. */
   .pill {
     position: relative;
     display: inline-flex;
@@ -165,7 +161,7 @@ const path = pagePath(Astro.url);
     transform: translate(1px, -1px);
   }
 
-  /* The pills keep their 28px look; this widens what a finger can hit. */
+  /* The pill keeps its 28px look; this widens what a finger can hit. */
   .pill::after {
     content: '';
     position: absolute;

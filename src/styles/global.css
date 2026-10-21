@@ -28,7 +28,7 @@
   /* Lowers the page's text on tall windows without pushing it off short ones. */
   --top: clamp(36px, 8vh, 80px);
   --end: 40px;
-  --header-top: 24px;
+  --header-space: 10px;
 
   /* Lets an opening question animate to its natural height where supported. */
   interpolate-size: allow-keywords;
@@ -59,7 +59,7 @@
     --section: 24px;
     --top: clamp(20px, 4vh, 40px);
     --end: 16px;
-    --header-top: 10px;
+    --header-space: 6px;
   }
 }
 

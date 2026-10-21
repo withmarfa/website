@@ -1,5 +1,6 @@
 ---
 import { pagePath } from '../lib/path';
+import Updates from './Updates.astro';
 
 const path = pagePath(Astro.url);
 ---
@@ -8,9 +9,12 @@ const path = pagePath(Astro.url);
   <span>© 2026 WithMarfa</span>
   <nav aria-label="Site">
     <a href="/about" aria-current={path === '/about' ? 'page' : undefined}>About</a>
+    <button type="button" popovertarget="updates">Subscribe</button>
     <a href="/privacy" aria-current={path === '/privacy' ? 'page' : undefined}>Privacy</a>
   </nav>
 </footer>
+
+<Updates />
 
 <style>
   footer {
@@ -28,13 +32,20 @@ const path = pagePath(Astro.url);
     gap: 18px;
   }
 
-  nav a {
+  nav a,
+  nav button {
+    padding: 0;
+    border: 0;
+    background: none;
     color: var(--muted);
+    font: inherit;
     text-decoration: none;
+    cursor: pointer;
     transition: color 0.15s ease;
   }
 
   nav a:hover,
+  nav button:hover,
   nav a[aria-current='page'] {
     color: var(--text);
   }
