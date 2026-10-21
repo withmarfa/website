@@ -28,7 +28,7 @@
   /* Lowers the page's text on tall windows without pushing it off short ones. */
   --top: clamp(36px, 8vh, 80px);
   --end: 40px;
-  --header-space: 10px;
+  --header-space: 6px;
 
   /* Lets an opening question animate to its natural height where supported. */
   interpolate-size: allow-keywords;
@@ -59,7 +59,7 @@
     --section: 24px;
     --top: clamp(20px, 4vh, 40px);
     --end: 16px;
-    --header-space: 6px;
+    --header-space: 4px;
   }
 }
 
@@ -232,7 +232,7 @@ a:hover {
 /* A card over the page, opened by a popovertarget button: the browser handles
    opening, Escape and a tap outside, with or without JavaScript. */
 .sheet {
-  width: min(420px, calc(100vw - 32px));
+  width: min(460px, calc(100vw - 32px));
   box-sizing: border-box;
   margin: auto;
   padding: 24px;
