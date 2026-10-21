@@ -16,7 +16,7 @@ The source of the public site at `withmarfa.com`: Astro, built to static files a
 
 - `src/pages/`: one file per page. `404.astro` is what Cloudflare serves for a missing path.
 - `src/layouts/Base.astro`: the document head, the header, the column and the footer, used by every page.
-- `src/components/`: the header (the Docs pill, and the way home on every other page), the footer (About, Contact and GitHub), and the question that opens.
+- `src/components/`: the header (the WithMarfa wordmark, which leads home, a GitHub icon and the Docs pill), the footer (the copyright and About), and the question that opens.
 - `src/styles/global.css`: the color tokens, shared with the docs site's canvas and text colors. Light and dark follow the system; there is no toggle.
 - `src/lib/analytics.ts`: PostHog, loaded after the page.
 - `public/`: copied as is. `_headers` sets the security headers and the Content Security Policy.

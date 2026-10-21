@@ -3,32 +3,28 @@ import Base from '../layouts/Base.astro';
 
 /** What's next. `now` marks the step in progress, shown in bold. */
 const next = [
-  { when: 'Early October', what: 'Development versions are public, with the code.' },
-  { when: 'Late October', what: 'Marfa 0.1, the first semi-stable release.', now: true },
-  { when: 'Early November', what: 'The Mac and iOS apps on TestFlight for an early group.' },
-  { when: 'Late November', what: 'Public TestFlight for the Mac and iOS apps.' },
-  { when: 'December', what: 'More apps and connectors, and Marfa Cloud in testing.' },
+  { when: 'Early October', what: 'Development builds, open source' },
+  { when: 'Late October', what: 'Marfa 0.1, first semi-stable release', now: true },
+  { when: 'Early November', what: 'Mac and iOS apps: early TestFlight' },
+  { when: 'Late November', what: 'Mac and iOS apps: public TestFlight' },
+  { when: 'December', what: 'More apps, and Marfa Cloud testing' },
 ];
 ---
 
-<Base
-  title="About Marfa"
-  description="How Marfa started, why it’s a personal project, and what’s next."
->
+<Base title="About Marfa" description="How Marfa started, why it’s a personal project, and what’s next.">
   <h1>About</h1>
-  <p>Marfa started as my own way of managing my data: one place that the apps and tools I use could all work from.</p>
   <p>
-    Over this year it went through several rounds of building and testing. It began as a hosted service, and this
-    autumn I rebuilt it as something you run yourself, with a Rust core under its command-line tool and native apps.
-    This is the version I’m building on now.
+    Marfa began as my own way of managing my data: one place that every app and tool I use could work from. This year
+    it went from a hosted service to something you run yourself, with a Rust core under its command-line tool and
+    native apps.
   </p>
   <p>
-    It’s a personal project, not a business. I maintain it, I’ll keep maintaining it, and I’ll keep building apps on
-    it. It’s open source so that anyone can run it, build on it or take it somewhere new.
+    It’s a personal project, not a business. I’ll keep maintaining it and building apps on it, and it’s open source so
+    that anyone can run it, build on it or take it somewhere new.
   </p>
 
   <h2>What’s next</h2>
-  <ul class="next">
+  <ol class="next">
     {
       next.map((step) => (
         <li class:list={{ now: step.now }} aria-current={step.now ? 'step' : undefined}>
@@ -37,10 +33,10 @@ const next = [
         </li>
       ))
     }
-  </ul>
+  </ol>
 
   <h2>Get in touch</h2>
-  <p>For questions, ideas or something you’ve built on Marfa, email <a href="mailto:hello@withmarfa.com">hello@withmarfa.com</a>.</p>
+  <p>Questions, ideas or something you’ve built? Email <a href="mailto:hello@withmarfa.com">hello@withmarfa.com</a>.</p>
 </Base>
 
 <style>
@@ -48,15 +44,15 @@ const next = [
     margin: 0;
     padding: 0;
     list-style: none;
+    font-size: var(--small-size);
+    line-height: 1.5;
   }
 
   .next li {
     display: grid;
-    grid-template-columns: 150px minmax(0, 1fr);
-    gap: 16px;
-    margin: 0 0 10px;
-    font-size: var(--text-size);
-    line-height: 1.55;
+    grid-template-columns: 8.5em minmax(0, 1fr);
+    gap: 12px;
+    padding: 5px 0;
   }
 
   .when {
@@ -71,11 +67,11 @@ const next = [
     color: var(--text);
   }
 
-  /* On a phone the period stays beside its step, in a narrower column. */
   @media (max-width: 560px) {
     .next li {
       grid-template-columns: 7.4em minmax(0, 1fr);
-      gap: 12px;
+      gap: 10px;
+      padding: 3px 0;
     }
   }
 </style>

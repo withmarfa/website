@@ -4,25 +4,17 @@ const path = Astro.url.pathname.replace(/(\/index)?\.html$/, '') || '/';
 
 <footer class="col">
   <span>© 2026 WithMarfa</span>
-  <nav aria-label="More">
-    <a href="/about" aria-current={path === '/about' ? 'page' : undefined}>About</a>
-    <span class="bar" aria-hidden="true">|</span>
-    <a href="mailto:hello@withmarfa.com">Contact</a>
-    <span class="bar" aria-hidden="true">|</span>
-    <a href="https://github.com/withmarfa">GitHub</a>
-  </nav>
+  <a href="/about" aria-current={path === '/about' ? 'page' : undefined}>About</a>
 </footer>
 
 <style>
   footer {
     margin-top: auto;
-    padding: 28px 0 max(32px, env(safe-area-inset-bottom));
+    padding: 20px 0 max(24px, env(safe-area-inset-bottom));
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
     justify-content: space-between;
     align-items: center;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--muted);
   }
 
@@ -35,10 +27,5 @@ const path = Astro.url.pathname.replace(/(\/index)?\.html$/, '') || '/';
   a:hover,
   a[aria-current='page'] {
     color: var(--text);
-  }
-
-  .bar {
-    margin: 0 10px;
-    color: var(--line);
   }
 </style>

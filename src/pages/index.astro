@@ -5,40 +5,42 @@ import Question from '../components/Question.astro';
 
 <Base
   title="Marfa"
-  description="Marfa is a shared, typed data layer for your apps. You define the kinds of things you keep and how they relate, and every app, agent or script you allow works from the same data."
+  description="Marfa is a shared data layer for your apps. You decide what you keep and how it connects, and every app, script or AI agent you allow works from the same data."
 >
   <h1>Introducing Marfa</h1>
   <p>
-    Marfa is a shared, typed data layer for your apps. You define the kinds of things you keep and how they relate,
-    and every app, agent or script you allow works from the same data.
+    Marfa is a shared data layer for your apps. You decide what kinds of things you keep and how they connect, and
+    every app, script or AI agent you allow works from the same data.
   </p>
   <p>
-    Most apps keep their own copy of your data, in their own shape. With Marfa, apps become views onto data you
-    already own: one app writes something, another shows it differently, a third combines it with something else. You
-    can swap an app, or build one for yourself, without moving anything.
+    Most apps keep their own copy of your data, in their own shape. With Marfa, an app is a view onto data you already
+    own: one writes something, another shows it differently, and you can switch apps or build your own without moving
+    anything.
   </p>
   <p>
-    Marfa runs on your own Mac or on Railway, and Marfa Cloud will be an optional way to reach it from anywhere. The
-    apps WithMarfa makes are native, starting on Mac, iPhone and iPad. Marfa is free and open source.
+    You run Marfa yourself, on your Mac or on Railway. It’s free and open source, and WithMarfa’s own apps are native,
+    starting with Mac, iPhone and iPad.
   </p>
 
   <div class="questions">
-    <Question question="How do apps work with Marfa?">
+    <Question question="Can I use it yet?">
       <p>
-        An app asks for the types it needs, you approve, and it sees those and nothing else. Several apps can work on
-        the same data, each in its own way, and none of them owns it.
+        Development versions are out now, for anyone happy to run them from the code. Marfa 0.1, the first semi-stable
+        release, follows in late October, and the Mac and iOS apps reach TestFlight in November. The
+        <a href="/about">About page</a> has the timeline.
       </p>
     </Question>
     <Question question="Where does my data live?">
       <p>
-        On your own Marfa, which runs on your own Mac or on Railway. Marfa Cloud will be an optional way to reach it
-        from anywhere, and it holds none of your data.
+        On your own Marfa, on your Mac or on Railway. Each app asks for the kinds of data it needs, and once you
+        approve, it sees those and nothing else. Marfa Cloud will later be an optional way to reach your Marfa from anywhere, and it won’t
+        hold your data.
       </p>
     </Question>
     <Question question="Can I build on it?">
       <p>
-        Yes, on the same open API that WithMarfa’s apps use. There are Swift and TypeScript SDKs, a command-line tool
-        for scripts and agents, and connectors that bring in data from GitHub, Todoist, Readwise and RSS.
+        Yes. WithMarfa’s apps use the same open API as anything you build. There are Swift and TypeScript SDKs, a
+        command-line tool for scripts and agents, and connectors for GitHub, Todoist, Readwise and RSS.
       </p>
     </Question>
   </div>
