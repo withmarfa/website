@@ -8,7 +8,7 @@ const path = Astro.url.pathname.replace(/(\/index)?\.html$/, '') || '/';
 
 <header class="col">
   <a class="mark" href="/" aria-label="WithMarfa home" aria-current={path === '/' ? 'page' : undefined}>
-    <svg viewBox="11 4 360 360" width="18" height="18" aria-hidden="true">
+    <svg viewBox="11 4 360 360" width="20" height="20" aria-hidden="true">
       <clipPath id="mark-tile"><rect x="11" y="4" width="360" height="360" rx="120"></rect></clipPath>
       <g clip-path="url(#mark-tile)">
         <rect x="11" y="4" width="360" height="360" class="tile"></rect>
