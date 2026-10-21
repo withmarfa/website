@@ -9,9 +9,11 @@ interface Props {
   description: string;
   /** Off for pages search engines should skip, such as the 404 page. */
   indexable?: boolean;
+  /** Less space above the title, for a longer page. */
+  compact?: boolean;
 }
 
-const { title, description, indexable = true } = Astro.props;
+const { title, description, indexable = true, compact = false } = Astro.props;
 const canonical = new URL(pagePath(Astro.url), Astro.site);
 const image = new URL('/og.png', Astro.site).href;
 ---
@@ -44,7 +46,7 @@ const image = new URL('/og.png', Astro.site).href;
   </head>
   <body>
     <Header />
-    <main class="col">
+    <main class:list={['col', { compact }]}>
       <slot />
     </main>
     <Footer />
