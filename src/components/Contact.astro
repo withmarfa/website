@@ -1,0 +1,40 @@
+---
+/**
+ * The Get in Touch card. It shows the address before anything opens a mail
+ * app, and offers to copy it instead.
+ */
+const EMAIL = 'hello@withmarfa.com';
+---
+
+<div id="contact" class="sheet" popover role="dialog" aria-labelledby="contact-title">
+  <p id="contact-title" class="sheet-title">Get in Touch</p>
+  <p>Questions, ideas, or want to hear more? Email <span class="address">{EMAIL}</span>.</p>
+  <div class="sheet-actions">
+    <button type="button" class="button plain" popovertarget="contact" popovertargetaction="hide">Close</button>
+    <button type="button" class="button secondary" data-copy={EMAIL}>Copy Address</button>
+    <a class="button primary" href={`mailto:${EMAIL}`}>Open Mail</a>
+  </div>
+</div>
+
+<script>
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
+    const label = button.textContent;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy!);
+        button.textContent = 'Copied';
+      } catch {
+        // Clipboard access can be refused; the address stays on screen to select.
+        button.textContent = 'Couldn’t Copy';
+      }
+      setTimeout(() => (button.textContent = label), 1800);
+    });
+  }
+</script>
+
+<style>
+  .address {
+    color: var(--text);
+    user-select: all;
+  }
+</style>

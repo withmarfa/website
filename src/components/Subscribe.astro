@@ -1,33 +1,46 @@
 ---
 /**
  * Signs someone up for updates. Without JavaScript the form posts and the
- * Worker redirects to /subscribed or /subscribe-failed; with it, the result shows in place. The
- * `website` field is left empty by people and filled by bots, which the Worker
- * then ignores.
+ * Worker redirects to /subscribed or /subscribe-failed; with it, the result
+ * shows in place. The `website` field is left empty by people and filled by
+ * bots, which the Worker then ignores.
  */
+interface Props {
+  /** The card the form sits in, which its Close button hides. */
+  card?: string;
+}
+
+const { card } = Astro.props;
 ---
 
 <form class="subscribe" method="post" action="/api/subscribe">
-  <div class="row">
-    <label class="visually-hidden" for="subscribe-email">Email address</label>
-    <input
-      id="subscribe-email"
-      name="email"
-      type="email"
-      autocomplete="email"
-      inputmode="email"
-      autocapitalize="off"
-      spellcheck="false"
-      maxlength="254"
-      placeholder="you@example.com"
-      required
-    />
-    <input class="trap" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
-    <button type="submit">Subscribe</button>
-  </div>
+  <label class="visually-hidden" for={`${card ?? 'page'}-email`}>Email address</label>
+  <input
+    id={`${card ?? 'page'}-email`}
+    name="email"
+    type="email"
+    autocomplete="email"
+    inputmode="email"
+    autocapitalize="off"
+    spellcheck="false"
+    maxlength="254"
+    placeholder="you@example.com"
+    required
+  />
+  <input class="trap" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
   <p class="note" data-status role="status" aria-live="polite">
     Occasional updates, nothing else. Unsubscribe any time. <a href="/privacy">Privacy</a>
   </p>
+  <div class="sheet-actions">
+    {
+      card && (
+        <button type="button" class="button plain" popovertarget={card} popovertargetaction="hide" data-close>
+          Close
+        </button>
+      )
+    }
+    <button type="submit" class="button primary">Subscribe</button>
+  </div>
 </form>
 
 <script>
@@ -39,11 +52,12 @@
 
   for (const form of document.querySelectorAll<HTMLFormElement>('form.subscribe')) {
     const status = form.querySelector<HTMLElement>('[data-status]')!;
-    const button = form.querySelector('button')!;
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const close = form.querySelector<HTMLButtonElement>('[data-close]');
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      button.disabled = true;
+      submit.disabled = true;
       form.dataset.state = 'busy';
 
       let result = 'error';
@@ -62,31 +76,32 @@
       if (result === 'ok') {
         form.dataset.state = 'done';
         status.textContent = 'Thanks. You’ll hear when there’s news.';
-        form.querySelector('.row')!.remove();
+        form.querySelector('input[type="email"]')!.remove();
+        submit.remove();
+        if (close) {
+          close.textContent = 'Done';
+          close.className = 'button primary';
+        }
         return;
       }
 
       form.dataset.state = 'failed';
       status.textContent = MESSAGES[result] ?? MESSAGES.error;
-      button.disabled = false;
+      submit.disabled = false;
     });
   }
 </script>
 
 <style>
-  .row {
-    display: flex;
-    gap: 8px;
-  }
-
   input[type='email'] {
-    flex: 1;
-    min-width: 0;
-    height: 38px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    height: 40px;
     padding: 0 12px;
     border: 1px solid var(--line);
     border-radius: 10px;
-    background: transparent;
+    background: var(--surface);
     color: var(--text);
     font: inherit;
     /* iOS Safari zooms into any field smaller than 16px when it gets focus. */
@@ -103,39 +118,11 @@
     outline: none;
   }
 
-  button {
-    height: 38px;
-    padding: 0 16px;
-    border: 0;
-    border-radius: 10px;
-    background: var(--text);
-    color: var(--bg);
-    font: inherit;
-    font-size: var(--small-size);
-    font-weight: 500;
-    cursor: pointer;
-    transition:
-      opacity 0.15s ease,
-      transform 0.15s ease;
-  }
-
-  button:hover {
-    opacity: 0.85;
-  }
-
-  button:active {
-    transform: scale(0.98);
-  }
-
-  button:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-
-  .note {
+  .subscribe .note {
     margin: 10px 0 0;
     color: var(--muted);
     font-size: 13px;
+    line-height: 1.45;
   }
 
   .note a {
@@ -150,6 +137,11 @@
     margin-top: 0;
     color: var(--text);
     font-size: var(--small-size);
+  }
+
+  /* After signing up, Done is the one action left, on the right. */
+  form[data-state='done'] [data-close] {
+    margin: 0 0 0 auto;
   }
 
   .trap {

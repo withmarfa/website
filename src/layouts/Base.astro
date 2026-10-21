@@ -48,6 +48,7 @@ const image = new URL('/og.png', Astro.site).href;
       <slot />
     </main>
     <Footer />
+    <slot name="end" />
     <script>
       import { loadAnalytics } from '../lib/analytics';
       loadAnalytics();

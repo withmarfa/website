@@ -27,13 +27,15 @@ const site = {
     Most apps keep their own copy of your data, in their own shape. With Marfa, apps become views onto data you own.
     Switch apps, use several at once or build your own, and nothing has to move.
   </p>
+  <p>
+    Want to hear when the apps open? <button type="button" class="link" popovertarget="updates">Get updates</button>.
+  </p>
 
   <div class="questions">
     <Question question="Can I try it yet?">
       <p>
         Developers can run Marfa today from <a href="https://github.com/withmarfa/marfa">the code on GitHub</a>. The
         Mac and iOS apps open to early testers in November, then to everyone on TestFlight later that month.
-        <a href="/about#follow">Get updates</a> to hear when.
       </p>
     </Question>
     <Question question="How is it different from iCloud?">
@@ -50,8 +52,50 @@ const site = {
   </div>
 </Base>
 
+<script>
+  // Keeps room for the longest answer below the questions, so the footer
+  // stays put whichever question is open. Measured again when the column's
+  // width changes, since that changes how the answers wrap.
+  const questions = document.querySelector<HTMLElement>('.questions')!;
+  let width = 0;
+
+  function reserve() {
+    if (questions.clientWidth === width) return;
+    width = questions.clientWidth;
+
+    const probe = document.createElement('div');
+    probe.className = 'probe';
+    questions.append(probe);
+    let tallest = 0;
+    for (const answer of questions.querySelectorAll('.answer')) {
+      probe.replaceChildren(answer.cloneNode(true));
+      tallest = Math.max(tallest, probe.offsetHeight);
+    }
+    probe.remove();
+
+    let rows = 0;
+    for (const summary of questions.querySelectorAll('summary')) rows += summary.offsetHeight;
+    const rules = questions.querySelectorAll('details').length - 1;
+    questions.style.minHeight = `${rows + rules + tallest}px`;
+  }
+
+  reserve();
+  new ResizeObserver(reserve).observe(questions);
+</script>
+
 <style>
   .questions {
+    position: relative;
     margin-top: var(--section);
+  }
+
+  /* Lays an answer out at the column's width without showing it. */
+  .questions :global(.probe) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    visibility: hidden;
+    pointer-events: none;
   }
 </style>

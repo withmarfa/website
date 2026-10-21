@@ -1,46 +1,20 @@
 ---
 import { pagePath } from '../lib/path';
-/**
- * The footer, and the Contact card it opens. The card shows the address before
- * anything opens a mail app, and offers to copy it instead.
- */
+import Updates from './Updates.astro';
+
 const path = pagePath(Astro.url);
-const EMAIL = 'hello@withmarfa.com';
 ---
 
 <footer class="col">
   <span>© 2026 WithMarfa</span>
   <nav aria-label="Site">
     <a href="/about" aria-current={path === '/about' ? 'page' : undefined}>About</a>
-    <button type="button" popovertarget="contact">Contact</button>
+    <button type="button" popovertarget="updates">Subscribe</button>
     <a href="/privacy" aria-current={path === '/privacy' ? 'page' : undefined}>Privacy</a>
   </nav>
 </footer>
 
-<div id="contact" popover role="dialog" aria-labelledby="contact-title">
-  <p id="contact-title" class="title">Get in touch</p>
-  <p class="address">{EMAIL}</p>
-  <div class="actions">
-    <button type="button" class="secondary" data-copy={EMAIL}>Copy address</button>
-    <a class="primary" href={`mailto:${EMAIL}`}>Open Mail</a>
-  </div>
-</div>
-
-<script>
-  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
-    const label = button.textContent;
-    button.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(button.dataset.copy!);
-        button.textContent = 'Copied';
-      } catch {
-        // Clipboard access can be refused; the address stays on screen to select.
-        button.textContent = 'Couldn’t copy';
-      }
-      setTimeout(() => (button.textContent = label), 1800);
-    });
-  }
-</script>
+<Updates />
 
 <style>
   footer {
@@ -74,90 +48,5 @@ const EMAIL = 'hello@withmarfa.com';
   nav button:hover,
   nav a[aria-current='page'] {
     color: var(--text);
-  }
-
-  /* The card sits in the middle of the window, over a soft veil. */
-  [popover] {
-    width: min(320px, calc(100vw - 32px));
-    box-sizing: border-box;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid var(--rule);
-    border-radius: 16px;
-    background: var(--bg);
-    color: var(--text);
-    box-shadow: 0 12px 40px color-mix(in srgb, #000 14%, transparent);
-    opacity: 0;
-    transform: translateY(6px) scale(0.98);
-    transition:
-      opacity 0.2s ease,
-      transform 0.2s ease,
-      overlay 0.2s allow-discrete,
-      display 0.2s allow-discrete;
-  }
-
-  [popover]:popover-open {
-    opacity: 1;
-    transform: none;
-  }
-
-  @starting-style {
-    [popover]:popover-open {
-      opacity: 0;
-      transform: translateY(6px) scale(0.98);
-    }
-  }
-
-  [popover]::backdrop {
-    background: color-mix(in srgb, #000 18%, transparent);
-  }
-
-  .title {
-    margin: 0 0 4px;
-    font-size: 15px;
-    font-weight: 600;
-  }
-
-  .address {
-    margin: 0 0 16px;
-    color: var(--secondary);
-    font-size: 15px;
-    user-select: all;
-  }
-
-  .actions {
-    display: flex;
-    gap: 8px;
-  }
-
-  .actions > * {
-    flex: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 36px;
-    padding: 0 12px;
-    border: 0;
-    border-radius: 10px;
-    font: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    cursor: pointer;
-    transition: opacity 0.15s ease;
-  }
-
-  .actions > *:hover {
-    opacity: 0.85;
-  }
-
-  .secondary {
-    background: color-mix(in srgb, var(--text) 7%, transparent);
-    color: var(--text);
-  }
-
-  .primary {
-    background: var(--text);
-    color: var(--bg);
   }
 </style>
