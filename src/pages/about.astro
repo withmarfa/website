@@ -55,10 +55,19 @@ const next = [
 </Base>
 
 <style>
+  /* About reads as one piece, so it sits a little tighter than other pages. */
+  p {
+    margin-bottom: calc(var(--gap) - 3px);
+  }
+
+  h2 {
+    margin-top: calc(var(--section) - 8px);
+  }
+
   /* Rows are padded rather than spaced, and the list pulls up by the same
      amount, so the first row sits where the heading's spacing puts it. */
   .next {
-    --row: 6px;
+    --row: 5px;
     margin: calc(var(--row) * -1) 0 0;
     padding: 0;
     list-style: none;
@@ -78,7 +87,7 @@ const next = [
   }
 
   .contact {
-    margin-top: var(--section);
+    margin-top: calc(var(--section) - 8px);
     font-size: var(--small-size);
     color: var(--secondary);
   }
