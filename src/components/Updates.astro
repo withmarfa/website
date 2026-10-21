@@ -1,19 +1,16 @@
 ---
-/** The Get Updates card, opened from the header and from the questions. */
+/** The Get Updates card, opened from the footer and the home page. */
 import Subscribe from './Subscribe.astro';
 ---
 
 <div id="updates" class="sheet" popover role="dialog" aria-labelledby="updates-title">
   <p id="updates-title" class="sheet-title">Get Updates</p>
-  <p>
-    Marfa is being shaped with a small group of early testers. Leave your email to hear when the apps open up and new
-    things ship.
-  </p>
+  <p>Marfa is being built with a small group of early testers. Leave your email to hear when the apps open to everyone.</p>
   <Subscribe card="updates" />
 </div>
 
 <style>
   .sheet > p:not(.sheet-title) {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 </style>
