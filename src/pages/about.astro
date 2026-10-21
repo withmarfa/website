@@ -1,26 +1,39 @@
 ---
 import Base from '../layouts/Base.astro';
+import Subscribe from '../components/Subscribe.astro';
 
 /** What's next. `now` marks the step in progress, shown in bold. */
 const next = [
   { when: 'Early October', what: 'Development builds, open source' },
-  { when: 'Late October', what: 'Marfa 0.1, first semi-stable release', now: true },
-  { when: 'Early November', what: 'Mac and iOS apps: early TestFlight' },
-  { when: 'Late November', what: 'Mac and iOS apps: public TestFlight' },
-  { when: 'December', what: 'More apps, and Marfa Cloud testing' },
+  { when: 'Late October', what: 'Marfa 0.1, the first semi-stable release', now: true },
+  { when: 'Early November', what: 'The Mac and iOS apps with early testers' },
+  { when: 'Late November', what: 'Public TestFlight, Marfa Cloud in testing, and the full website' },
 ];
 ---
 
-<Base title="About Marfa" description="How Marfa started, why it’s a personal project, and what’s next.">
+<Base
+  title="About Marfa"
+  description="Why Marfa exists, how it was rebuilt this year, and what’s next: Marfa 0.1, TestFlight for the Mac and iOS apps, and Marfa Cloud."
+>
   <h1>About</h1>
   <p>
-    Marfa began as my own way of managing my data: one place that every app and tool I use could work from. This year
-    it went from a hosted service to something you run yourself, with a Rust core under its command-line tool and
-    native apps.
+    Marfa grew out of a frustration. After trying more apps than I can count, every switch meant leaving something
+    behind. It also draws on experience with customer data platforms, where one well-modelled source of data is the
+    whole point.
   </p>
   <p>
-    It’s a personal project, not a business. I’ll keep maintaining it and building apps on it, and it’s open source so
-    that anyone can run it, build on it or take it somewhere new.
+    That matters more now that agents can build an app in an afternoon. Apps can come and go; the data underneath
+    should last, and make sense to whatever reads it next.
+  </p>
+  <p>
+    Marfa has been rebuilt more than once this year. It began as a hosted service that tried to be compatible with
+    everything, which pulled it away from what mattered most: a sound data model and a server you can rely on. So it
+    became something you run yourself, with a Rust core under its command-line tool and native apps. Marfa Cloud will
+    follow as an optional relay for reaching it from anywhere, without holding your data.
+  </p>
+  <p>
+    It’s a personal project, not a business. It ships when it works, not before. It’s free and open source, so anyone
+    can run it, build on it or take it somewhere new.
   </p>
 
   <h2>What’s next</h2>
@@ -35,8 +48,12 @@ const next = [
     }
   </ol>
 
-  <h2>Get in touch</h2>
-  <p>Questions, ideas or something you’ve built? Email <a href="mailto:hello@withmarfa.com">hello@withmarfa.com</a>.</p>
+  <h2 id="follow">Follow along</h2>
+  <p class="lead">
+    Marfa is being shaped with a small group of early testers. Leave your email to hear as the apps open up and new
+    things ship.
+  </p>
+  <Subscribe />
 </Base>
 
 <style>
@@ -70,9 +87,18 @@ const next = [
     color: var(--text);
   }
 
+  .lead {
+    margin-bottom: 14px;
+    font-size: var(--small-size);
+  }
+
+  #follow {
+    scroll-margin-top: 24px;
+  }
+
   @media (max-width: 560px) {
     .next {
-      --row: 3px;
+      --row: 4px;
     }
 
     .next li {

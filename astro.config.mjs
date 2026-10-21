@@ -17,4 +17,11 @@ export default defineConfig({
     // in `public/_headers` needs no 'unsafe-inline'.
     inlineStylesheets: 'never',
   },
+  vite: {
+    build: {
+      // Astro inlines a script smaller than this limit, and the Content
+      // Security Policy blocks inline scripts, so every script stays a file.
+      assetsInlineLimit: 0,
+    },
+  },
 });
