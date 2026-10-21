@@ -1,17 +1,13 @@
 ---
-interface Props {
-  link: { href: string; label: string };
-}
-
-const { link } = Astro.props;
+const path = Astro.url.pathname.replace(/(\/index)?\.html$/, '') || '/';
 ---
 
 <footer class="col">
   <span>© 2026 WithMarfa</span>
-  <nav aria-label="Links">
-    <a href={link.href}>{link.label}</a>
+  <nav aria-label="More">
+    <a href="/about" aria-current={path === '/about' ? 'page' : undefined}>About</a>
     <span class="bar" aria-hidden="true">|</span>
-    <a href="https://docs.marfa.so">Docs</a>
+    <a href="mailto:hello@withmarfa.com">Contact</a>
     <span class="bar" aria-hidden="true">|</span>
     <a href="https://github.com/withmarfa">GitHub</a>
   </nav>
@@ -20,11 +16,12 @@ const { link } = Astro.props;
 <style>
   footer {
     margin-top: auto;
-    padding: 28px 0 32px;
+    padding: 28px 0 max(32px, env(safe-area-inset-bottom));
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     justify-content: space-between;
+    align-items: center;
     font-size: 14px;
     color: var(--muted);
   }
@@ -32,9 +29,11 @@ const { link } = Astro.props;
   a {
     color: var(--muted);
     text-decoration: none;
+    transition: color 0.15s ease;
   }
 
-  a:hover {
+  a:hover,
+  a[aria-current='page'] {
     color: var(--text);
   }
 

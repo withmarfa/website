@@ -24,7 +24,7 @@ const { question } = Astro.props;
     align-items: center;
     gap: 16px;
     min-height: 44px;
-    font-size: 16px;
+    font-size: var(--small-size);
     font-weight: 600;
   }
 
@@ -32,15 +32,39 @@ const { question } = Astro.props;
     display: none;
   }
 
+  /* A plus that turns into a minus. */
   summary::after {
-    content: '+';
-    font-weight: 400;
-    font-size: 20px;
-    color: var(--muted);
+    content: '';
+    flex: none;
+    width: 11px;
+    height: 11px;
+    background:
+      linear-gradient(var(--muted), var(--muted)) center / 11px 1.5px no-repeat,
+      linear-gradient(var(--muted), var(--muted)) center / 1.5px 11px no-repeat;
+    transition: transform 0.25s ease;
   }
 
   details[open] summary::after {
-    content: '−';
+    background: linear-gradient(var(--muted), var(--muted)) center / 11px 1.5px no-repeat;
+    transform: rotate(180deg);
+  }
+
+  summary:hover::after {
+    filter: contrast(1.6);
+  }
+
+  /* Opens and closes smoothly where the browser can animate it; elsewhere it
+     simply opens. */
+  details::details-content {
+    height: 0;
+    overflow: clip;
+    transition:
+      height 0.25s ease,
+      content-visibility 0.25s allow-discrete;
+  }
+
+  details[open]::details-content {
+    height: auto;
   }
 
   .answer {
@@ -49,6 +73,6 @@ const { question } = Astro.props;
 
   .answer :global(p) {
     margin: 0;
-    font-size: 16px;
+    font-size: var(--small-size);
   }
 </style>
