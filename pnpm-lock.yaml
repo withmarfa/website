@@ -12,8 +12,8 @@ importers:
         specifier: ^7.4.4
         version: 7.4.4(esbuild@0.28.2)(yaml@2.9.1)
       posthog-js:
-        specifier: ^1.441.2
-        version: 1.441.2
+        specifier: ^1.442.0
+        version: 1.442.0
     devDependencies:
       '@astrojs/check':
         specifier: ^0.9.12
@@ -1382,8 +1382,8 @@ packages:
     resolution: {integrity: sha512-LJlKCCAUFKOuZxipUdYw1NzIITEsPcgyOG9LkvRJvuKj/bRzbuRY0ARXvL0pWGpsZvn8jku+LMep2eU0seHp8g==}
     engines: {node: ^10 || ^12 || >=14}
 
-  posthog-js@1.441.2:
-    resolution: {integrity: sha512-PsELSUSVCx80BfbtMtir8fW6scxVj+2CvsG+Vj2j9eTQYQL1AzsaZr73pqJk1XWEcSt+B1hEfirz3iFVQGVQkQ==}
+  posthog-js@1.442.0:
+    resolution: {integrity: sha512-RaZhFpqlPdoHU5VCkUCUR1c9oMQJAGZHvv0T1bl57smHxKEihTrfYP8ovny81XrrDmswNGkNYC35wTibY7P3OQ==}
     peerDependencies:
       '@types/react': '>=16.8.0'
       react: '>=16.8.0'
@@ -3148,7 +3148,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.2
 
-  posthog-js@1.441.2:
+  posthog-js@1.442.0:
     dependencies:
       '@posthog/browser-common': 0.10.1
       '@posthog/core': 1.61.2
