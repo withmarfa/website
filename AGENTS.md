@@ -4,7 +4,7 @@ The source of the public site at `withmarfa.com`: Astro, built to static files a
 
 ## Conventions
 
-- TypeScript and ESM. pnpm with the committed lockfile, on Node 22.22 or later (`.node-version`), which Astro 7 requires.
+- TypeScript and ESM. pnpm with the committed lockfile, on Node 22.23.4 or later (`.node-version`), which Astro 7 requires.
 - American English in code, comments and commits. Words on the page follow the Writing section of Apple's Human Interface Guidelines; the README follows the Google developer documentation style guide.
 - Conventional Commits with a scope, such as `feat(home):` or `fix(analytics):`. Work reaches `main` only through a pull request, one logical change each, squash merged.
 - Make worktrees in `.claude/worktrees/` (`git worktree add .claude/worktrees/<name> -b <branch> origin/main`). Once merged, remove the worktree and its local branch, and run `git pull --ff-only` on `main`.
