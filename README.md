@@ -6,7 +6,7 @@ The site is built with [Astro](https://astro.build) and served from Cloudflare. 
 
 ## Develop
 
-You need Node.js 22.22 or later and pnpm.
+You need Node.js 22.23.4 or later and pnpm.
 
 ```bash
 pnpm install
