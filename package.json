@@ -15,11 +15,12 @@
     "preview": "pnpm run build && wrangler dev"
   },
   "dependencies": {
-    "astro": "^7.4.4",
+    "astro": "^7.4.7",
     "posthog-js": "^1.442.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
+    "@emnapi/runtime": "^1.11.3",
     "typescript": "^6.0.3",
     "wrangler": "^4.155.0"
   },
